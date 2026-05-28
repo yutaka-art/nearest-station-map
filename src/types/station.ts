@@ -4,9 +4,19 @@ export type Station = {
   lat: number
   lon: number
   distanceMeters: number
-  tags: Record<string, string>
-  osmType: 'node' | 'way' | 'relation'
-  osmId: number
+  operator?: string
+  line?: string
+  source?: string
+}
+
+export type StaticStation = {
+  id: string
+  name: string
+  lat: number
+  lon: number
+  operator?: string | null
+  line?: string | null
+  source: string
 }
 
 export type SearchParams = {

@@ -78,7 +78,8 @@ export async function fetchNearestStations(
 
   const data: OverpassResponse = await response.json()
 
-  const stations: Station[] = data.elements
+  type RawStation = { id: string; name: string; lat: number; lon: number; distanceMeters: number }
+  const rawStations: (RawStation | null)[] = data.elements
     .map((el) => {
       const stLat = el.lat ?? el.center?.lat
       const stLon = el.lon ?? el.center?.lon
@@ -96,12 +97,10 @@ export async function fetchNearestStations(
         lat: stLat,
         lon: stLon,
         distanceMeters: distance,
-        tags,
-        osmType: el.type,
-        osmId: el.id,
-      } satisfies Station
+      }
     })
-    .filter((s): s is Station => s !== null)
+
+  const stations: Station[] = rawStations.filter((s): s is RawStation => s !== null)
 
   return deduplicateStations(stations)
 }
@@ -109,7 +108,8 @@ export async function fetchNearestStations(
 /**
  * 同名かつ座標が近い重複データを除外する (距離が短い方を残す)
  */
-export function deduplicateStations(stations: Station[]): Station[] {
+type DedupeStation = Pick<Station, 'id' | 'name' | 'lat' | 'lon' | 'distanceMeters'>
+export function deduplicateStations(stations: DedupeStation[]): DedupeStation[] {
   const COORD_THRESHOLD = 0.001 // 約100m 程度
   const result: Station[] = []
 

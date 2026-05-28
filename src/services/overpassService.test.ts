@@ -33,11 +33,8 @@ describe('buildOverpassQuery', () => {
   })
 })
 
-const makeStation = (overrides: Partial<Station> & { name: string; lat: number; lon: number; distanceMeters: number }): Station => ({
+const makeStation = (overrides: { name: string; lat: number; lon: number; distanceMeters: number } & Partial<Station>): Station => ({
   id: `node/${Math.random()}`,
-  osmType: 'node',
-  osmId: Math.floor(Math.random() * 1000000),
-  tags: {},
   ...overrides,
 })
 

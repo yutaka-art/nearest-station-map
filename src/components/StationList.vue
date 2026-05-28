@@ -21,7 +21,7 @@
               <div class="station-name">{{ station.name }}</div>
               <div class="station-meta">
                 <span class="station-distance">{{ formatDistance(station.distanceMeters) }}</span>
-                <span class="station-type">{{ getStationType(station) }}</span>
+                <span class="station-type">{{ getStationMeta(station) }}</span>
               </div>
             </div>
             <button
@@ -61,12 +61,11 @@ const emit = defineEmits<{
   flyTo: [station: Station]
 }>()
 
-function getStationType(station: Station): string {
-  const tags = station.tags
-  if (tags['railway'] === 'station') return 'railway=station'
-  if (tags['railway'] === 'halt') return 'railway=halt'
-  if (tags['public_transport'] === 'station') return 'public_transport=station'
-  return station.osmType
+function getStationMeta(station: Station): string {
+  const parts: string[] = []
+  if (station.line) parts.push(station.line)
+  if (station.operator) parts.push(station.operator)
+  return parts.join(' / ')
 }
 </script>
 

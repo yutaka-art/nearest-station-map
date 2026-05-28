@@ -1,0 +1,28 @@
+NOTICE
+======
+
+このアプリに含まれる駅データ（public/data/stations.json）は、
+国土交通省「国土数値情報（鉄道時系列データ N05）」を加工して作成しています。
+
+  提供元: 国土交通省 国土数値情報ダウンロードサービス
+  URL   : https://nlftp.mlit.go.jp/ksj/
+  ライセンス: 国土数値情報ダウンロードサービス利用規約
+              https://nlftp.mlit.go.jp/ksj/other/yakkan.html
+
+アプリのソースコード（src/ 以下）は MIT ライセンスに従います（LICENSE ファイル参照）。
+データの利用条件とソースコードのライセンスは別扱いです。
+商用利用を予定する場合は、上記の元データ利用規約を必ずご確認ください。
+
+---
+
+This app includes station data (public/data/stations.json) derived from
+"National Land Numerical Information - Railway Time-Series Data (N05)"
+provided by the Ministry of Land, Infrastructure, Transport and Tourism of Japan.
+
+  Source : National Land Numerical Information Download Service
+  URL    : https://nlftp.mlit.go.jp/ksj/
+  License: Terms of Use for National Land Numerical Information Download Service
+           https://nlftp.mlit.go.jp/ksj/other/yakkan.html
+
+The source code (under src/) is licensed under the MIT License (see LICENSE file).
+The data terms and source code license are separate.
