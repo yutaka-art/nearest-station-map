@@ -4,6 +4,8 @@ OpenStreetMap をベースにした「指定地点から近い最寄り駅を表
 
 https://yutaka-art.github.io/nearest-station-map/
 
+![アプリ画面](doc/images/001.png)
+
 ## アプリ概要
 
 - 地図をクリック → 周辺駅を距離順に最大 10 件表示

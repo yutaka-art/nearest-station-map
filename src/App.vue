@@ -2,7 +2,7 @@
   <div class="app">
     <header class="header">
       <div class="header-inner">
-        <h1 class="app-title">Nearest Station Map</h1>
+        <h1 class="app-title">駅どこサーチ</h1>
         <p class="app-desc">地図をクリックすると、その地点周辺の駅を距離順に表示します。</p>
       </div>
     </header>
