@@ -2,6 +2,8 @@
 
 OpenStreetMap をベースにした「指定地点から近い最寄り駅を表示する Web アプリ」です。地図上の任意地点をクリックすると、その周辺の駅を Overpass API で検索し、距離が近い順に一覧表示します。
 
+https://yutaka-art.github.io/nearest-station-map/
+
 ## アプリ概要
 
 - 地図をクリック → 周辺駅を距離順に最大 10 件表示
