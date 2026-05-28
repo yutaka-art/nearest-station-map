@@ -89,6 +89,53 @@ npm run build
 4. Output Directory: `dist`
 5. Deploy
 
+## 駅データについて
+
+本アプリの駅データは、国土交通省「国土数値情報（鉄道時系列データ N05）」を加工して作成した静的 JSON ファイル（`public/data/stations.json`）を使用しています。
+
+### データ生成手順
+
+#### 1. 元データのダウンロード
+
+以下のページから N05（鉄道時系列データ）の ShapeFile をダウンロードしてください。
+
+https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N02-v3_1.html
+
+ダウンロードしたファイルを以下のパスに配置してください。
+
+```
+data-source/
+└── N05/
+    ├── Station2.shp
+    ├── Station2.dbf
+    └── Station2.shx  （他の関連ファイルも同じフォルダへ）
+```
+
+#### 2. 依存ライブラリのインストール
+
+```bash
+pip install geopandas pyproj shapely
+```
+
+#### 3. スクリプトの実行
+
+```bash
+python tools/generate-stations.py
+```
+
+実行すると `public/data/stations.json` が生成されます。
+
+#### 4. 生成結果の確認
+
+スクリプトはカラム一覧・件数・重複排除結果をログ出力します。N05 のバージョンによってカラム名が異なる場合は、`tools/generate-stations.py` 内の `COLUMN_CANDIDATES` を調整してください。
+
+### データの利用条件
+
+- 国土数値情報のデータは [国土数値情報ダウンロードサービス利用規約](https://nlftp.mlit.go.jp/ksj/other/yakkan.html) に従って利用してください。
+- `public/data/stations.json` はアプリ配信用の派生データです。
+- 商用利用を予定する場合は、元データの利用条件を必ずご確認ください。
+- 元データの著作権は国土交通省に帰属します。
+
 ## OpenStreetMap / Overpass API 利用上の注意
 
 - 本アプリは [OpenStreetMap](https://www.openstreetmap.org/) のデータを使用しています。

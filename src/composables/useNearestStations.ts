@@ -1,9 +1,7 @@
 import { ref } from 'vue'
 import type { Station, SearchParams } from '../types/station'
-import { fetchNearestStations } from '../services/overpassService'
+import { searchNearbyStations } from '../services/staticStationService'
 import { isValidCoordinate } from '../utils/geo'
-
-const MAX_RESULTS = 10
 
 export function useNearestStations() {
   const stations = ref<Station[]>([])
@@ -24,14 +22,11 @@ export function useNearestStations() {
     stations.value = []
 
     try {
-      const results = await fetchNearestStations(lat, lon, radiusMeters)
-      const sorted = results
-        .sort((a, b) => a.distanceMeters - b.distanceMeters)
-        .slice(0, MAX_RESULTS)
-      stations.value = sorted
+      const results = await searchNearbyStations(lat, lon, radiusMeters)
+      stations.value = results
       searchedParams.value = params
 
-      if (sorted.length === 0) {
+      if (results.length === 0) {
         errorMessage.value = `半径 ${radiusMeters}m 以内に駅が見つかりませんでした。`
       }
     } catch (err) {
