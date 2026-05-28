@@ -8,6 +8,8 @@ import Map from 'ol/Map'
 import View from 'ol/View'
 import TileLayer from 'ol/layer/Tile'
 import OSM from 'ol/source/OSM'
+import { defaults as defaultControls } from 'ol/control'
+import Attribution from 'ol/control/Attribution'
 import VectorLayer from 'ol/layer/Vector'
 import VectorSource from 'ol/source/Vector'
 import Feature from 'ol/Feature'
@@ -82,6 +84,12 @@ function initMap(): void {
 
   map = new Map({
     target: mapContainer.value,
+    controls: defaultControls({ attribution: false }).extend([
+      new Attribution({
+        collapsible: true,
+        collapsed: window.innerWidth <= 768,
+      }),
+    ]),
     layers: [
       new TileLayer({ source: new OSM() }),
       new VectorLayer({ source: stationSource }),
@@ -165,8 +173,10 @@ function flyToStation(station: Station): void {
 
 function panTo(lat: number, lon: number): void {
   if (!map) return
+  const coord = fromLonLat([lon, lat])
+  updateClickMarker(coord)
   map.getView().animate({
-    center: fromLonLat([lon, lat]),
+    center: coord,
     duration: 500,
   })
 }
@@ -195,5 +205,14 @@ onUnmounted(() => {
   width: 100%;
   height: 100%;
   min-height: 300px;
+}
+</style>
+
+<style>
+/* モバイルでアトリビューションテキストを非表示 */
+@media (max-width: 768px) {
+  .ol-attribution ul {
+    display: none;
+  }
 }
 </style>
